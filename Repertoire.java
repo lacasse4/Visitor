@@ -9,25 +9,31 @@ public class Repertoire extends Noeud {
 	
 	private List<Noeud> enfants;
 
-	public Repertoire(Noeud parent, File nom) {
-		super(parent, nom);
+	public Repertoire(File nom) {
+		super(nom);
 		enfants = new ArrayList<Noeud>();
 		getEnfants();
 	}
 	
 	private void getEnfants() {
-		for (File f : nom.listFiles()) {
-			if (f.isDirectory()) 
-				enfants.add(new Repertoire(this, f));
-			else 
-				enfants.add(new Fichier(this, f));
+		Noeud noeud;
+		
+		for (File file : nom.listFiles()) {
+			if (file.isDirectory()) {
+				noeud = new Repertoire(file);
+			}
+			else {
+				noeud = new Fichier(file);
+			}
+			enfants.add(noeud);
 		}
 	}
 	
 	public void accept (Visitor v) {
 		Iterator<Noeud> i = enfants.iterator();
 		v.visit(this);
-		while (i.hasNext()) 
+		while (i.hasNext()) {
 			i.next().accept(v);
+		}
 	}
 }

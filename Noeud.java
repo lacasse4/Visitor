@@ -4,11 +4,9 @@ import java.io.File;
 
 public abstract class Noeud {
 	
-	Noeud parent;
 	File nom;
 	
-	public Noeud(Noeud parent, File nom) {
-		this.parent = parent;
+	public Noeud(File nom) {
 		this.nom = nom;
 	}
 	
